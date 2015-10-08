@@ -4,18 +4,13 @@
 (defn subject-fn [previous-state event]
   (assert (< (count previous-state) 100))
   (case event
-    :join
+    :member-join
     (conj previous-state (str "member-" (rand-int 10000)))
 
-    :leave
+    :member-leave
     (rest previous-state)))
 
-(defn events-count-fn [subject-state]
-  3)
-
-(defn event-choose-fn [subject-state selector-number]
-  (if (zero? selector-number) :leave :join))
-
-(defn start-example! []
+#_(defn start-example! []
   (let [initial-state (list)]
-    (start! subject-fn initial-state events-count-fn event-choose-fn)))
+    (start! subject-fn initial-state {:member-join  (* 1000 60 60 24)
+                                      :member-leave (* 1000 60 60 24 5)})))
