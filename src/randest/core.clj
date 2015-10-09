@@ -12,25 +12,27 @@
       (for [[event period] event->period]
         [event (normalize largest-period period)]))))
 
-;event->period example: {:event-a 1      ;Most frequent.
-;                        :event-b 7
-;                        :event-c 10}    ;Least frequent.
-(defn pick-event [event->period]
-  (let [event->probability (map-probabilities event->period)
-        total-probability (apply + (vals event->probability))]
-    (loop [event->probabilities (seq event->probability)
-           random (rand-int total-probability)]
-      (let [[event probability] (first event->probabilities)
-            random' (- random probability)]
-        (if (<= random' 0)
-          event
-          (recur (next event->probabilities)
-                 random'))))))
+(defn- pick-event [event->probability total-probability]
+  (loop [event->probabilities (seq event->probability)
+         random (rand-int total-probability)]
+    (let [[event probability] (first event->probabilities)
+          random' (- random probability)]
+      (if (<= random' 0)
+        event
+        (recur (next event->probabilities)
+               random')))))
 
-#_(defn start! [subject-fn initial-state event->period]
-  (let [new-state (subject-fn initial-state event)]
+(defn start!
+  "event->period example: {:event-a 1      ;Most frequent.
+                           :event-b 7
+                           :event-c 10}    ;Least frequent."
+  [f initial-state event->period]
+  (let [event->probability (map-probabilities event->period)
+        total-probability (apply + (vals event->probability))
+        event (pick-event event->probability total-probability)
+        new-state (f initial-state event)]
     (println new-state)
-    (recur subject-fn new-state events-count-fn event-choose-fn)))
+    (recur f new-state event->period)))
 
 (comment
   (randest.core/pick-event {:a 1 :b 2 :c 10}))

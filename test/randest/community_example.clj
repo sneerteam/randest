@@ -10,7 +10,10 @@
     :member-leave
     (rest previous-state)))
 
-#_(defn start-example! []
+(defn start-example! []
   (let [initial-state (list)]
     (start! subject-fn initial-state {:member-join  (* 1000 60 60 24)
                                       :member-leave (* 1000 60 60 24 5)})))
+
+(comment
+  (randest.community-example/start-example!))
