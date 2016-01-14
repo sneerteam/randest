@@ -1,3 +1,5 @@
+[Under Construction]
+
 # Randest - Tower Defense Driven Development (TDDD)
 
 A framework that makes testing software systems easier and more fun, like playing tower defense (TD) games. It is especially suited for complex, asynchronous and even distributed systems.
@@ -34,8 +36,8 @@ To test interactions between users in a chat system, for example:
 ## Basic Level
 
 Start Randest passing it two functions that you define:
-1. **event-periods** - Given the state of your system, returns a map with the possible events as keys and their average periods as values. See example above.
-2. **apply-event** - Given the event name and Returns the new system state.
+ 1. **event-periods** - Given the state of your system, returns a map with the possible events as keys and their average periods as values. See example above.
+ 2. **apply-event** - Given the event name and Returns the new system state.
 
 To test interactions between users in a chat system, for example, that function would return:
 
