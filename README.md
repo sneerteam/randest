@@ -20,7 +20,7 @@ Randest is NOT a graphic or gaming framework. The image above is from "Flash Tow
 
 # How?
 
-Instead of having to come up with clever test cases, you just have to decide what events could happen and their average period in millis.
+Instead of having to come up with clever test cases, you just have to list the events that could happen and their average period in millis.
 
 To test interactions between users in a chat system, for example:
 
